@@ -40,8 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/title_color_picker"
-            android:textSize="20sp"
-            android:fontFamily="sans-serif-medium"
+            android:textAppearance="?attr/textAppearanceHeadline6"
             app:layout_constraintTop_toTopOf="@id/topGuideline"
             app:layout_constraintStart_toStartOf="@id/startGuideline"
             app:layout_constraintEnd_toEndOf="@id/endGuideline" />
@@ -51,7 +50,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             tools:text="#FFFFFF"
-            android:textSize="16sp"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
             app:layout_constraintTop_toBottomOf="@id/titleTextView"
             app:layout_constraintStart_toStartOf="@id/startGuideline"
             app:layout_constraintEnd_toEndOf="@id/endGuideline" />
