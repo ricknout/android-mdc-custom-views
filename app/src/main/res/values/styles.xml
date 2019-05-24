@@ -1,4 +1,5 @@
-<resources>
+<resources
+        xmlns:tools="http://schemas.android.com/tools">
 
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
 
@@ -24,8 +25,11 @@
         <item name="shapeAppearanceMediumComponent">@style/AppShapeAppearance.MediumComponent</item>
         <item name="shapeAppearanceLargeComponent">@style/AppShapeAppearance.LargeComponent</item>
         <!-- System bar attributes -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <item name="android:navigationBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/color_system_bar</item>
+        <item name="android:navigationBarColor">@color/color_system_bar</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="M">@bool/light_system_bar</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="P">@bool/light_system_bar</item>
+        <item name="android:navigationBarDividerColor" tools:targetApi="P">@color/color_system_bar_divider</item>
     </style>
 
     <style name="AppShapeAppearance.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">

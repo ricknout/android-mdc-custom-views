@@ -13,5 +13,7 @@
     <color name="color_on_surface">#000000</color>
     <color name="color_background">#FFFFFF</color>
     <color name="color_on_background">#000000</color>
+    <color name="color_system_bar">#FFFFFF</color>
+    <color name="color_system_bar_divider">#1F000000</color>
 
 </resources>
