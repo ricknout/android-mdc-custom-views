@@ -39,7 +39,7 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
     private var selectedColor: String? = null
         set(value) {
             field = value
-            selectedColorTextView.text = value
+            subtitleTextView.text = value
             val colorItems = colors.map { color -> ColorItem(color = color, selected = color == value) }
             adapter.submitList(colorItems)
         }
@@ -56,8 +56,12 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
         val styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.ColorPickerView, defStyleAttr, R.style.AppColorPicker)
         val backgroundTint = styledAttrs.getColorStateListOrThrow(R.styleable.ColorPickerView_backgroundTint)
         val elevation = styledAttrs.getDimensionOrThrow(R.styleable.ColorPickerView_android_elevation)
+        val titleTextColor = styledAttrs.getColorStateListOrThrow(R.styleable.ColorPickerView_titleTextColor)
+        val subtitleTextColor = styledAttrs.getColorStateListOrThrow(R.styleable.ColorPickerView_subtitleTextColor)
         backgroundTintList = backgroundTint
         setElevation(elevation)
+        titleTextView.setTextColor(titleTextColor)
+        subtitleTextView.setTextColor(subtitleTextColor)
         styledAttrs.recycle()
         background = materialShapeDrawable
     }

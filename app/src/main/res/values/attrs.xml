@@ -7,6 +7,8 @@
         <attr name="shapeAppearance" />
         <attr name="backgroundTint" />
         <attr name="android:elevation" />
+        <attr name="titleTextColor" />
+        <attr name="subtitleTextColor" />
     </declare-styleable>
 
 </resources>
