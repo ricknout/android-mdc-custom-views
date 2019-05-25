@@ -225,7 +225,6 @@
                 android:layout_height="360dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:elevation="4dp"
                 app:layout_constraintTop_toBottomOf="@id/floatingActionButton"
                 app:layout_constraintEnd_toEndOf="parent" />
 
