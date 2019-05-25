@@ -46,6 +46,7 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
             adapter.submitList(colorItems)
         }
 
+    private val materialShapeDrawable = MaterialShapeDrawable(context, attrs, R.attr.colorPickerStyle, R.style.AppColorPicker)
     private val itemShapeAppearanceModel = ShapeAppearanceModel(context, attrs, R.attr.itemStyle, R.style.AppColorPickerItem)
 
     init {
@@ -62,12 +63,17 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
         val titleTextColor = styledAttrs.getColorStateListOrThrow(R.styleable.ColorPickerView_titleTextColor)
         val subtitleTextColor = styledAttrs.getColorStateListOrThrow(R.styleable.ColorPickerView_subtitleTextColor)
         styledAttrs.recycle()
-        val materialShapeDrawable = MaterialShapeDrawable(context, attrs, R.attr.colorPickerStyle, R.style.AppColorPicker)
+        materialShapeDrawable.initializeElevationOverlay(context)
         background = materialShapeDrawable
         backgroundTintList = backgroundTint
         setElevation(elevation)
         titleTextView.setTextColor(titleTextColor)
         subtitleTextView.setTextColor(subtitleTextColor)
+    }
+
+    override fun setElevation(elevation: Float) {
+        super.setElevation(elevation)
+        materialShapeDrawable.elevation = elevation
     }
 
     inner class Adapter : ListAdapter<ColorItem, ViewHolder>(DIFFER) {
