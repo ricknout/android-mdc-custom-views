@@ -9,6 +9,7 @@
         <attr name="android:elevation" />
         <attr name="titleTextColor" />
         <attr name="subtitleTextColor" />
+        <attr name="itemStyle" format="reference" />
     </declare-styleable>
 
 </resources>
