@@ -60,6 +60,7 @@
 
     <style name="AppColorPickerItem">
         <item name="shapeAppearance">?attr/shapeAppearanceSmallComponent</item>
+        <item name="rippleColor">@color/ripple_color_color_picker</item>
     </style>
 
 </resources>
