@@ -12,4 +12,9 @@
         <attr name="itemStyle" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="ColorPickerItem">
+        <attr name="shapeAppearance" />
+        <attr name="rippleColor" />
+    </declare-styleable>
+
 </resources>

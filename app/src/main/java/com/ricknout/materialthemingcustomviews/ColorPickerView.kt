@@ -1,7 +1,10 @@
 package com.ricknout.materialthemingcustomviews
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.RippleDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +12,15 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.getColorStateListOrThrow
 import androidx.core.content.res.getDimensionOrThrow
+import androidx.core.content.res.getResourceIdOrThrow
+import androidx.core.content.withStyledAttributes
 import androidx.core.graphics.ColorUtils
 import androidx.core.view.doOnLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.ripple.RippleUtils
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 import kotlinx.android.synthetic.main.list_item_color_picker.view.*
@@ -48,6 +54,7 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
 
     private val materialShapeDrawable = MaterialShapeDrawable(context, attrs, R.attr.colorPickerStyle, R.style.AppColorPicker)
     private val itemShapeAppearanceModel = ShapeAppearanceModel(context, attrs, R.attr.itemStyle, R.style.AppColorPickerItem)
+    private lateinit var itemRippleColor: ColorStateList
 
     init {
         inflate(context, R.layout.view_color_picker, this)
@@ -57,18 +64,22 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
             callback?.onPickColor(color)
             selectedColor = null
         }
-        val styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.ColorPickerView, defStyleAttr, R.style.AppColorPicker)
-        val backgroundTint = styledAttrs.getColorStateListOrThrow(R.styleable.ColorPickerView_backgroundTint)
-        val elevation = styledAttrs.getDimensionOrThrow(R.styleable.ColorPickerView_android_elevation)
-        val titleTextColor = styledAttrs.getColorStateListOrThrow(R.styleable.ColorPickerView_titleTextColor)
-        val subtitleTextColor = styledAttrs.getColorStateListOrThrow(R.styleable.ColorPickerView_subtitleTextColor)
-        styledAttrs.recycle()
-        materialShapeDrawable.initializeElevationOverlay(context)
-        background = materialShapeDrawable
-        backgroundTintList = backgroundTint
-        setElevation(elevation)
-        titleTextView.setTextColor(titleTextColor)
-        subtitleTextView.setTextColor(subtitleTextColor)
+        context.withStyledAttributes(attrs, R.styleable.ColorPickerView, defStyleAttr, R.style.AppColorPicker) {
+            val backgroundTint = getColorStateListOrThrow(R.styleable.ColorPickerView_backgroundTint)
+            val elevation = getDimensionOrThrow(R.styleable.ColorPickerView_android_elevation)
+            val titleTextColor = getColorStateListOrThrow(R.styleable.ColorPickerView_titleTextColor)
+            val subtitleTextColor = getColorStateListOrThrow(R.styleable.ColorPickerView_subtitleTextColor)
+            val itemStyleRes = getResourceIdOrThrow(R.styleable.ColorPickerView_itemStyle)
+            context.withStyledAttributes(itemStyleRes, R.styleable.ColorPickerItem) {
+                itemRippleColor = getColorStateListOrThrow(R.styleable.ColorPickerItem_rippleColor)
+            }
+            materialShapeDrawable.initializeElevationOverlay(context)
+            background = materialShapeDrawable
+            backgroundTintList = backgroundTint
+            setElevation(elevation)
+            titleTextView.setTextColor(titleTextColor)
+            subtitleTextView.setTextColor(subtitleTextColor)
+        }
     }
 
     override fun setElevation(elevation: Float) {
@@ -90,11 +101,15 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(colorItem: ColorItem) {
+            val rippleColor = RippleUtils.convertToRippleDrawableColor(itemRippleColor)
+            val maskDrawable = GradientDrawable().apply { setColor(Color.WHITE) }
+            val rippleDrawable = RippleDrawable(rippleColor, null, maskDrawable)
+            itemView.background = rippleDrawable
             val tintColor = Color.parseColor(colorItem.color)
             val materialShapeDrawable = MaterialShapeDrawable(itemShapeAppearanceModel)
-            itemView.view.background = materialShapeDrawable
-            itemView.view.background.setTint(tintColor)
-            itemView.view.doOnLayout { view ->
+            itemView.colorView.background = materialShapeDrawable
+            itemView.colorView.background.setTint(tintColor)
+            itemView.colorView.doOnLayout { view ->
                 val cornerRadius = view.width.toFloat() / 2
                 materialShapeDrawable.setCornerRadius(cornerRadius)
             }
