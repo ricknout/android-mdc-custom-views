@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="colorPickerStyle" format="reference" />
+
+    <declare-styleable name="ColorPickerView">
+        <attr name="shapeAppearance" />
+        <attr name="backgroundTint" />
+        <attr name="android:elevation" />
+    </declare-styleable>
+
+</resources>

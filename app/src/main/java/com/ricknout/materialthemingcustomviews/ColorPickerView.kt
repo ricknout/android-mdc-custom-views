@@ -7,11 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.res.getColorStateListOrThrow
+import androidx.core.content.res.getDimensionOrThrow
 import androidx.core.graphics.ColorUtils
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.shape.MaterialShapeDrawable
 import kotlinx.android.synthetic.main.list_item_color_picker.view.*
 import kotlinx.android.synthetic.main.view_color_picker.view.*
 
@@ -49,7 +52,14 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
             callback?.onPickColor(color)
             selectedColor = null
         }
-        setBackgroundResource(R.drawable.bg_color_picker)
+        val materialShapeDrawable = MaterialShapeDrawable(context, attrs, R.attr.colorPickerStyle, R.style.AppColorPicker)
+        val styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.ColorPickerView, defStyleAttr, R.style.AppColorPicker)
+        val backgroundTint = styledAttrs.getColorStateListOrThrow(R.styleable.ColorPickerView_backgroundTint)
+        val elevation = styledAttrs.getDimensionOrThrow(R.styleable.ColorPickerView_android_elevation)
+        backgroundTintList = backgroundTint
+        setElevation(elevation)
+        styledAttrs.recycle()
+        background = materialShapeDrawable
     }
 
     inner class Adapter : ListAdapter<ColorItem, ViewHolder>(DIFFER) {
