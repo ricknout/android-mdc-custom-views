@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">Material Theming Custom Views</string>
+    <string name="app_name">MDC Custom Views</string>
     <string name="title_color_picker">Select a color</string>
     <string name="button_color_picker">OK</string>
 
