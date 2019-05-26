@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="colorPickerStyle" format="reference" />
+
+    <declare-styleable name="ColorPickerView">
+        <attr name="shapeAppearance" />
+        <attr name="backgroundTint" />
+        <attr name="android:elevation" />
+        <attr name="titleTextColor" />
+        <attr name="subtitleTextColor" />
+        <attr name="itemStyle" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="ColorPickerItem">
+        <attr name="shapeAppearance" />
+        <attr name="rippleColor" />
+    </declare-styleable>
+
+</resources>
