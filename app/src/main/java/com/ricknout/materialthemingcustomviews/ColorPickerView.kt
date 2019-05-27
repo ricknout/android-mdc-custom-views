@@ -105,6 +105,7 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
             val maskDrawable = GradientDrawable().apply { setColor(Color.WHITE) }
             val rippleDrawable = RippleDrawable(rippleColor, null, maskDrawable)
             itemView.background = rippleDrawable
+            itemView.isSelected = colorItem.selected
             val tintColor = Color.parseColor(colorItem.color)
             val materialShapeDrawable = MaterialShapeDrawable(itemShapeAppearanceModel)
             itemView.colorView.background = materialShapeDrawable
