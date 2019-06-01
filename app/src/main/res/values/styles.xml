@@ -55,12 +55,8 @@
         <item name="android:elevation">4dp</item>
         <item name="titleTextColor">?attr/colorOnSurfaceEmphasisHighType</item>
         <item name="subtitleTextColor">?attr/colorOnSurfaceEmphasisMedium</item>
-        <item name="itemStyle">@style/AppColorPickerItem</item>
-    </style>
-
-    <style name="AppColorPickerItem">
-        <item name="shapeAppearance">?attr/shapeAppearanceSmallComponent</item>
-        <item name="rippleColor">@color/ripple_color_color_picker</item>
+        <item name="itemShapeAppearance">?attr/shapeAppearanceSmallComponent</item>
+        <item name="itemRippleColor">@color/ripple_color_color_picker</item>
     </style>
 
 </resources>

@@ -53,7 +53,7 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
         }
 
     private val materialShapeDrawable = MaterialShapeDrawable(context, attrs, R.attr.colorPickerStyle, R.style.AppColorPicker)
-    private val itemShapeAppearanceModel = ShapeAppearanceModel(context, attrs, R.attr.itemStyle, R.style.AppColorPickerItem)
+    private lateinit var itemShapeAppearanceModel: ShapeAppearanceModel
     private lateinit var itemRippleColor: ColorStateList
 
     init {
@@ -69,10 +69,9 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
             val elevation = getDimensionOrThrow(R.styleable.ColorPickerView_android_elevation)
             val titleTextColor = getColorStateListOrThrow(R.styleable.ColorPickerView_titleTextColor)
             val subtitleTextColor = getColorStateListOrThrow(R.styleable.ColorPickerView_subtitleTextColor)
-            val itemStyleRes = getResourceIdOrThrow(R.styleable.ColorPickerView_itemStyle)
-            context.withStyledAttributes(itemStyleRes, R.styleable.ColorPickerItem) {
-                itemRippleColor = getColorStateListOrThrow(R.styleable.ColorPickerItem_rippleColor)
-            }
+            val itemShapeAppearanceResId = getResourceIdOrThrow(R.styleable.ColorPickerView_itemShapeAppearance)
+            itemShapeAppearanceModel = ShapeAppearanceModel(context, itemShapeAppearanceResId, 0)
+            itemRippleColor = getColorStateListOrThrow(R.styleable.ColorPickerView_itemRippleColor)
             materialShapeDrawable.initializeElevationOverlay(context)
             background = materialShapeDrawable
             backgroundTintList = backgroundTint

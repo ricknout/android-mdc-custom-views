@@ -9,12 +9,8 @@
         <attr name="android:elevation" />
         <attr name="titleTextColor" />
         <attr name="subtitleTextColor" />
-        <attr name="itemStyle" format="reference" />
-    </declare-styleable>
-
-    <declare-styleable name="ColorPickerItem">
-        <attr name="shapeAppearance" />
-        <attr name="rippleColor" />
+        <attr name="itemShapeAppearance" />
+        <attr name="itemRippleColor" />
     </declare-styleable>
 
 </resources>
