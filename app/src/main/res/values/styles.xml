@@ -53,8 +53,8 @@
         <item name="shapeAppearance">?attr/shapeAppearanceLargeComponent</item>
         <item name="backgroundTint">?attr/colorSurface</item>
         <item name="android:elevation">4dp</item>
-        <item name="titleTextColor">?attr/colorOnSurfaceEmphasisHighType</item>
-        <item name="subtitleTextColor">?attr/colorOnSurfaceEmphasisMedium</item>
+        <item name="titleTextColor">@color/mtrl_on_surface_emphasis_high_type</item>
+        <item name="subtitleTextColor">@color/mtrl_on_surface_emphasis_medium</item>
         <item name="itemShapeAppearance">?attr/shapeAppearanceSmallComponent</item>
         <item name="itemRippleColor">@color/ripple_color_color_picker</item>
     </style>
