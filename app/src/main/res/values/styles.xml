@@ -51,7 +51,7 @@
 
     <style name="AppColorPicker">
         <item name="shapeAppearance">?attr/shapeAppearanceLargeComponent</item>
-        <item name="backgroundTint">?attr/colorSurface</item>
+        <item name="android:backgroundTint">?attr/colorSurface</item>
         <item name="android:elevation">4dp</item>
         <item name="titleTextColor">@color/mtrl_on_surface_emphasis_high_type</item>
         <item name="subtitleTextColor">@color/mtrl_on_surface_emphasis_medium</item>

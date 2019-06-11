@@ -5,7 +5,7 @@
 
     <declare-styleable name="ColorPickerView">
         <attr name="shapeAppearance" />
-        <attr name="backgroundTint" />
+        <attr name="android:backgroundTint" />
         <attr name="android:elevation" />
         <attr name="titleTextColor" />
         <attr name="subtitleTextColor" />

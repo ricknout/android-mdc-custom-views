@@ -9,6 +9,8 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.ColorInt
+import androidx.annotation.Dimension
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.getColorStateListOrThrow
 import androidx.core.content.res.getDimensionOrThrow
@@ -21,6 +23,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.ripple.RippleUtils
+import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 import kotlinx.android.synthetic.main.list_item_color_picker.view.*
@@ -42,6 +45,62 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
             adapter.submitList(colorItems)
         }
 
+    var shapeAppearance = ShapeAppearanceModel()
+        set(value) {
+            field = value
+            materialShapeDrawable.shapeAppearanceModel = value
+        }
+
+    fun setShapeAppearance(@CornerFamily cornerFamily: Int, @Dimension cornerSize: Int) {
+        shapeAppearance = ShapeAppearanceModel().apply { setAllCorners(cornerFamily, cornerSize) }
+    }
+
+    fun setBackgroundTint(@ColorInt color: Int) {
+        backgroundTintList = ColorStateList.valueOf(color)
+    }
+
+    var titleTextColor = ColorStateList(emptyArray(), intArrayOf())
+        set(value) {
+            field = value
+            titleTextView.setTextColor(value)
+        }
+
+    fun setTitleTextColor(@ColorInt color: Int) {
+        titleTextColor = ColorStateList.valueOf(color)
+    }
+
+    var subtitleTextColor = ColorStateList(emptyArray(), intArrayOf())
+        set(value) {
+            field = value
+            subtitleTextView.setTextColor(value)
+        }
+
+    fun setSubtitleTextColor(@ColorInt color: Int) {
+        subtitleTextColor = ColorStateList.valueOf(color)
+    }
+
+    var itemShapeAppearance = ShapeAppearanceModel()
+        set(value) {
+            field = value
+            adapter.notifyItemRangeChanged(0, colors.size)
+        }
+
+    fun setItemShapeAppearance(@CornerFamily cornerFamily: Int) {
+        itemShapeAppearance = ShapeAppearanceModel().apply { setAllCorners(cornerFamily, ShapeAppearanceModel.PILL) }
+    }
+
+    var itemRippleColor = ColorStateList(emptyArray(), intArrayOf())
+        set(value) {
+            field = value
+            adapter.notifyItemRangeChanged(0, colors.size)
+        }
+
+    fun setItemRippleColor(@ColorInt color: Int) {
+        itemRippleColor = ColorStateList.valueOf(color)
+    }
+
+    private val materialShapeDrawable = MaterialShapeDrawable()
+
     private val adapter = Adapter()
 
     private var selectedColor: String? = null
@@ -52,10 +111,6 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
             adapter.submitList(colorItems)
         }
 
-    private val materialShapeDrawable = MaterialShapeDrawable(context, attrs, R.attr.colorPickerStyle, R.style.AppColorPicker)
-    private lateinit var itemShapeAppearanceModel: ShapeAppearanceModel
-    private lateinit var itemRippleColor: ColorStateList
-
     init {
         inflate(context, R.layout.view_color_picker, this)
         colorsRecyclerView.adapter = adapter
@@ -64,20 +119,19 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
             callback?.onPickColor(color)
             selectedColor = null
         }
+        background = materialShapeDrawable
+        materialShapeDrawable.initializeElevationOverlay(context)
         context.withStyledAttributes(attrs, R.styleable.ColorPickerView, defStyleAttr, R.style.AppColorPicker) {
-            val backgroundTint = getColorStateListOrThrow(R.styleable.ColorPickerView_backgroundTint)
+            val shapeAppearanceResId = getResourceIdOrThrow(R.styleable.ColorPickerView_shapeAppearance)
+            shapeAppearance = ShapeAppearanceModel(context, shapeAppearanceResId, 0)
+            backgroundTintList = getColorStateListOrThrow(R.styleable.ColorPickerView_android_backgroundTint)
             val elevation = getDimensionOrThrow(R.styleable.ColorPickerView_android_elevation)
-            val titleTextColor = getColorStateListOrThrow(R.styleable.ColorPickerView_titleTextColor)
-            val subtitleTextColor = getColorStateListOrThrow(R.styleable.ColorPickerView_subtitleTextColor)
-            val itemShapeAppearanceResId = getResourceIdOrThrow(R.styleable.ColorPickerView_itemShapeAppearance)
-            itemShapeAppearanceModel = ShapeAppearanceModel(context, itemShapeAppearanceResId, 0)
-            itemRippleColor = getColorStateListOrThrow(R.styleable.ColorPickerView_itemRippleColor)
-            materialShapeDrawable.initializeElevationOverlay(context)
-            background = materialShapeDrawable
-            backgroundTintList = backgroundTint
             setElevation(elevation)
-            titleTextView.setTextColor(titleTextColor)
-            subtitleTextView.setTextColor(subtitleTextColor)
+            titleTextColor = getColorStateListOrThrow(R.styleable.ColorPickerView_titleTextColor)
+            subtitleTextColor = getColorStateListOrThrow(R.styleable.ColorPickerView_subtitleTextColor)
+            val itemShapeAppearanceResId = getResourceIdOrThrow(R.styleable.ColorPickerView_itemShapeAppearance)
+            itemShapeAppearance = ShapeAppearanceModel(context, itemShapeAppearanceResId, 0)
+            itemRippleColor = getColorStateListOrThrow(R.styleable.ColorPickerView_itemRippleColor)
         }
     }
 
@@ -106,7 +160,7 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
             itemView.background = rippleDrawable
             itemView.isSelected = colorItem.selected
             val tintColor = Color.parseColor(colorItem.color)
-            val materialShapeDrawable = MaterialShapeDrawable(itemShapeAppearanceModel)
+            val materialShapeDrawable = MaterialShapeDrawable(itemShapeAppearance)
             itemView.colorView.background = materialShapeDrawable
             itemView.colorView.background.setTint(tintColor)
             itemView.colorView.doOnLayout { view ->
