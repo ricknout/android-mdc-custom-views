@@ -1,9 +1,9 @@
 <resources
         xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
+    <style name="Theme.App.Baseline" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
 
-    <style name="AppTheme.Themed">
+    <style name="Theme.App.Custom" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Global color attributes -->
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryVariant">@color/color_primary_variant</item>
@@ -21,9 +21,9 @@
         <item name="fontFamily">@font/roboto_mono</item>
         <item name="android:fontFamily">@font/roboto_mono</item>
         <!-- Global shape attributes -->
-        <item name="shapeAppearanceSmallComponent">@style/AppShapeAppearance.SmallComponent</item>
-        <item name="shapeAppearanceMediumComponent">@style/AppShapeAppearance.MediumComponent</item>
-        <item name="shapeAppearanceLargeComponent">@style/AppShapeAppearance.LargeComponent</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.App.LargeComponent</item>
         <!-- System bar attributes -->
         <item name="android:statusBarColor">@color/color_system_bar</item>
         <item name="android:navigationBarColor">@color/color_system_bar</item>
@@ -31,25 +31,25 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="P">@bool/light_system_bar</item>
         <item name="android:navigationBarDividerColor" tools:targetApi="P">@color/color_system_bar_divider</item>
         <!-- ColorPickerView widget attribute -->
-        <item name="colorPickerStyle">@style/AppColorPicker</item>
+        <item name="colorPickerStyle">@style/Widget.App.ColorPickerView</item>
     </style>
 
-    <style name="AppShapeAppearance.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerFamily">cut</item>
         <item name="cornerSize">8dp</item>
     </style>
 
-    <style name="AppShapeAppearance.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">cut</item>
         <item name="cornerSize">8dp</item>
     </style>
 
-    <style name="AppShapeAppearance.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+    <style name="ShapeAppearance.App.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
         <item name="cornerFamily">cut</item>
         <item name="cornerSize">8dp</item>
     </style>
 
-    <style name="AppColorPicker">
+    <style name="Widget.App.ColorPickerView" parent="">
         <item name="shapeAppearance">?attr/shapeAppearanceLargeComponent</item>
         <item name="android:backgroundTint">?attr/colorSurface</item>
         <item name="android:elevation">4dp</item>

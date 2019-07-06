@@ -121,7 +121,7 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
         }
         background = materialShapeDrawable
         materialShapeDrawable.initializeElevationOverlay(context)
-        context.withStyledAttributes(attrs, R.styleable.ColorPickerView, defStyleAttr, R.style.AppColorPicker) {
+        context.withStyledAttributes(attrs, R.styleable.ColorPickerView, defStyleAttr, R.style.Widget_App_ColorPickerView) {
             val shapeAppearanceResId = getResourceIdOrThrow(R.styleable.ColorPickerView_shapeAppearance)
             shapeAppearance = ShapeAppearanceModel(context, shapeAppearanceResId, 0)
             backgroundTintList = getColorStateListOrThrow(R.styleable.ColorPickerView_android_backgroundTint)
