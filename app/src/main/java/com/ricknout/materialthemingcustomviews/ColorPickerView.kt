@@ -153,6 +153,7 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        @Suppress("RestrictedApi")
         fun bind(colorItem: ColorItem) {
             val rippleColor = RippleUtils.convertToRippleDrawableColor(itemRippleColor)
             val maskDrawable = GradientDrawable().apply { setColor(Color.WHITE) }
