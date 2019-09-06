@@ -52,7 +52,7 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
         }
 
     fun setShapeAppearance(@CornerFamily cornerFamily: Int, @Dimension cornerSize: Int) {
-        shapeAppearance = ShapeAppearanceModel().apply { setAllCorners(cornerFamily, cornerSize) }
+        shapeAppearance = ShapeAppearanceModel.builder().setAllCorners(cornerFamily, cornerSize).build()
     }
 
     fun setBackgroundTint(@ColorInt color: Int) {
@@ -86,7 +86,7 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
         }
 
     fun setItemShapeAppearance(@CornerFamily cornerFamily: Int) {
-        itemShapeAppearance = ShapeAppearanceModel().apply { setAllCorners(cornerFamily, ShapeAppearanceModel.PILL) }
+        itemShapeAppearance = ShapeAppearanceModel.builder().setAllCorners(cornerFamily, ShapeAppearanceModel.PILL).build()
     }
 
     var itemRippleColor = ColorStateList(emptyArray(), intArrayOf())
@@ -123,14 +123,14 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
         materialShapeDrawable.initializeElevationOverlay(context)
         context.withStyledAttributes(attrs, R.styleable.ColorPickerView, defStyleAttr, R.style.Widget_App_ColorPickerView) {
             val shapeAppearanceResId = getResourceIdOrThrow(R.styleable.ColorPickerView_shapeAppearance)
-            shapeAppearance = ShapeAppearanceModel(context, shapeAppearanceResId, 0)
+            shapeAppearance = ShapeAppearanceModel.builder(context, shapeAppearanceResId, 0).build()
             backgroundTintList = getColorStateListOrThrow(R.styleable.ColorPickerView_android_backgroundTint)
             val elevation = getDimensionOrThrow(R.styleable.ColorPickerView_android_elevation)
             setElevation(elevation)
             titleTextColor = getColorStateListOrThrow(R.styleable.ColorPickerView_titleTextColor)
             subtitleTextColor = getColorStateListOrThrow(R.styleable.ColorPickerView_subtitleTextColor)
             val itemShapeAppearanceResId = getResourceIdOrThrow(R.styleable.ColorPickerView_itemShapeAppearance)
-            itemShapeAppearance = ShapeAppearanceModel(context, itemShapeAppearanceResId, 0)
+            itemShapeAppearance = ShapeAppearanceModel.builder(context, itemShapeAppearanceResId, 0).build()
             itemRippleColor = getColorStateListOrThrow(R.styleable.ColorPickerView_itemRippleColor)
         }
     }
