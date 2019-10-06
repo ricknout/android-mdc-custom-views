@@ -17,7 +17,6 @@ import androidx.core.content.res.getDimensionOrThrow
 import androidx.core.content.res.getResourceIdOrThrow
 import androidx.core.content.withStyledAttributes
 import androidx.core.graphics.ColorUtils
-import androidx.core.view.doOnLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -51,7 +50,7 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
             materialShapeDrawable.shapeAppearanceModel = value
         }
 
-    fun setShapeAppearance(@CornerFamily cornerFamily: Int, @Dimension cornerSize: Int) {
+    fun setShapeAppearance(@CornerFamily cornerFamily: Int, @Dimension cornerSize: Float) {
         shapeAppearance = ShapeAppearanceModel.builder().setAllCorners(cornerFamily, cornerSize).build()
     }
 
@@ -86,7 +85,10 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
         }
 
     fun setItemShapeAppearance(@CornerFamily cornerFamily: Int) {
-        itemShapeAppearance = ShapeAppearanceModel.builder().setAllCorners(cornerFamily, ShapeAppearanceModel.PILL).build()
+        itemShapeAppearance = ShapeAppearanceModel.builder()
+            .setAllCorners(cornerFamily, 0f)
+            .setAllCornerSizes(ShapeAppearanceModel.PILL)
+            .build()
     }
 
     var itemRippleColor = ColorStateList(emptyArray(), intArrayOf())
@@ -164,10 +166,7 @@ class ColorPickerView @JvmOverloads constructor(context: Context, attrs: Attribu
             val materialShapeDrawable = MaterialShapeDrawable(itemShapeAppearance)
             itemView.colorView.background = materialShapeDrawable
             itemView.colorView.background.setTint(tintColor)
-            itemView.colorView.doOnLayout { view ->
-                val cornerRadius = view.width.toFloat() / 2
-                materialShapeDrawable.setCornerRadius(cornerRadius)
-            }
+            materialShapeDrawable.setCornerSize(ShapeAppearanceModel.PILL)
             itemView.selectedImageView.isVisible = colorItem.selected
             val blackContrast = ColorUtils.calculateContrast(Color.BLACK, tintColor)
             val whiteContrast = ColorUtils.calculateContrast(Color.WHITE, tintColor)
